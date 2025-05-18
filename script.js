@@ -117,7 +117,7 @@ fetch("grammatik.json")
         {
           content: "Adjektiv Deklanation",
           matchPartial: true,
-          direction: "row",
+          direction: "col",
           span: 4,
           style: {
             backgroundColor: "#f8f8f8",
