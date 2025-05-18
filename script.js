@@ -150,7 +150,7 @@ fetch("grammatik.json")
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 		  }
         },
-		  {
+	{
           text: ["werden + Partizip II", "wurden + Partizip II", "sein/haben + Partizip II + worden",
 		 "war + Part. II + worden", "werden + Part. II + werden", "werden + Partizip II + worden + sein"],
           matchPartial: false,
@@ -160,7 +160,7 @@ fetch("grammatik.json")
             fontWeight: "bold", textAlign: "left", verticalAlign: "middle"
 		  }
         },
-		  {
+	{
           text: ["MV: Modal Verb"],
           matchPartial: true,
           direction: "col",
@@ -169,7 +169,7 @@ fetch("grammatik.json")
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 		  }
         },
-		  {
+	{
           text: ["Wechsel Verben (Wohin oder wo?)", "Passiv Satz", "N-Deklanation"],
           matchPartial: false,
           direction: "row",
@@ -190,7 +190,7 @@ fetch("grammatik.json")
 			fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 	  	}
           },
-		  {
+	{
           text: ["Bestimmtes / Unbestimmtes Wort", "Examples of Adjektiv Deklanation",
 		 "Personal Pronomen Adjektiv Deklanation"],
           matchPartial: false,
@@ -200,8 +200,17 @@ fetch("grammatik.json")
 			fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 	  	}
           },
-		  {
-          text: ["Verb Kojuktion (", "Note: \"möchten\"", "§ Ich hätte gern"],
+	{
+          text: ["Konjuktiv II (I would come if…. Form) Conjugation"],
+          matchPartial: false,
+          direction: "row",
+          span: 18,
+          style: { 
+            fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+		  }
+        },
+	{
+          text: [`Verb Kojuktion (`, `Note: "möchten", "§ Ich hätte gern"`],
           matchPartial: true,
           direction: "row",
           span: 11,
