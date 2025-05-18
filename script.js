@@ -25,14 +25,21 @@ function mergeCellsWhenContentMatches(tbody, mergeInstruction) {
   const { text, span, direction, style = {}, matchPartial = false } = mergeInstruction;
   const rows = Array.from(tbody.rows);
 
+  const texts = Array.isArray(text) ? text : [text]; // Normalize to array
+
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
     for (let j = 0; j < row.cells.length; j++) {
       const cell = row.cells[j];
-      if (
-        cell &&
-        ((matchPartial && cell.textContent.includes(text)) || (!matchPartial && cell.textContent === text))
-      ) {
+      if (!cell) continue;
+
+      const content = cell.textContent.trim();
+
+      const matches = texts.some(t =>
+        matchPartial ? content.includes(t) : content === t
+      );
+
+      if (matches) {
         if (direction === "row") {
           cell.colSpan = span;
           for (let k = 1; k < span; k++) {
