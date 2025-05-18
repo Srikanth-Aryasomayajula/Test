@@ -21,44 +21,43 @@ function mergeMultipleCells(container, configs) {
   configs.forEach(config => mergeCellsWhenContentMatches(container, config));
 }
 
-function mergeCellsWhenContentMatches(container, options) {
-  const {
-    content,
-    matchPartial = false,
-    direction = "row", // "row" or "col"
-    span = 1,
-    style = {} // styling object like { fontWeight: "bold", textAlign: "center" }
-  } = options;
+function mergeCellsWhenContentMatches(tbody, mergeInstructions) {
+  const rows = Array.from(tbody.rows);
 
-  const tables = container.querySelectorAll("table");
-
-  tables.forEach(table => {
-    const rows = Array.from(table.rows);
+  mergeInstructions.forEach(({ text, span, direction, style = {} }) => {
     for (let i = 0; i < rows.length; i++) {
-      const cells = Array.from(rows[i].cells);
-      for (let j = 0; j < cells.length; j++) {
-        const cell = cells[j];
-        const text = cell.textContent.trim();
-
-        if ((matchPartial && text.includes(content)) || text === content) {
+      const row = rows[i];
+      for (let j = 0; j < row.cells.length; j++) {
+        const cell = row.cells[j];
+        if (cell && cell.textContent.includes(text)) {
           if (direction === "row") {
             cell.colSpan = span;
             for (let k = 1; k < span; k++) {
-              const sibling = cells[j + 1]; // Always the next cell, as previous is removed
-              if (sibling) cell.parentNode.removeChild(sibling);
+              const cellToDelete = row.cells[j + 1];
+              if (cellToDelete && cellToDelete.parentNode === row) {
+                row.removeChild(cellToDelete);
+              }
             }
           } else if (direction === "col") {
             cell.rowSpan = span;
             for (let k = 1; k < span; k++) {
               const rowBelow = rows[i + k];
-              if (rowBelow && rowBelow.cells[j]) {
-                rowBelow.deleteCell(j);
+              if (rowBelow) {
+                const colIndex = Array.from(row.cells).indexOf(cell);
+                if (rowBelow.cells.length > colIndex) {
+                  const toDelete = rowBelow.cells[colIndex];
+                  if (toDelete && toDelete.parentNode === rowBelow) {
+                    rowBelow.removeChild(toDelete);
+                  }
+                }
               }
             }
           }
 
-          // Apply styling
+          // Apply styles to merged cell
           Object.assign(cell.style, style);
+
+          // Stop further search once matched
           return;
         }
       }
