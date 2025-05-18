@@ -1,70 +1,75 @@
 fetch('grammatik.json')
   .then(res => res.json())
   .then(data => {
-    const tables = [];
+    const groupedTables = [];
     let currentTable = [];
 
-    data.forEach(row => {
-      const hasContent = Object.values(row).some(v => v && v.trim?.() !== '');
+    for (const row of data) {
+      const values = Object.values(row).map(v => (v || "").trim());
+      const isEmpty = values.every(v => v === "");
 
-      if (hasContent) {
-        currentTable.push(row);
-      } else if (currentTable.length) {
-        tables.push(currentTable);
-        currentTable = [];
+      if (isEmpty) {
+        if (currentTable.length > 0) {
+          const cleaned = cleanTable(currentTable);
+          if (cleaned.length > 0 && cleaned[0].length > 0) {
+            groupedTables.push(cleaned);
+          }
+          currentTable = [];
+        }
+      } else {
+        currentTable.push(values);
       }
-    });
+    }
 
-    if (currentTable.length) tables.push(currentTable);
+    if (currentTable.length > 0) {
+      const cleaned = cleanTable(currentTable);
+      if (cleaned.length > 0 && cleaned[0].length > 0) {
+        groupedTables.push(cleaned);
+      }
+    }
 
-    renderTables(tables);
+    renderTables(groupedTables);
   });
 
+// Function to remove empty rows and columns
+function cleanTable(table) {
+  // Remove completely empty rows
+  table = table.filter(row => row.some(cell => cell.trim() !== ""));
+
+  // Transpose to check columns
+  const colCount = Math.max(...table.map(row => row.length));
+  const transposed = Array.from({ length: colCount }, (_, i) =>
+    table.map(row => row[i] || "")
+  );
+
+  // Determine non-empty columns
+  const nonEmptyColIndices = transposed
+    .map((col, i) => ({ i, empty: col.every(cell => cell.trim() === "") }))
+    .filter(col => !col.empty)
+    .map(col => col.i);
+
+  // Reconstruct table with non-empty columns
+  return table.map(row =>
+    nonEmptyColIndices.map(i => row[i] || "")
+  );
+}
+
 function renderTables(tables) {
-  const container = document.getElementById('tables-container');
+  const container = document.getElementById('tablesContainer');
+  tables.forEach(table => {
+    const tableElem = document.createElement('table');
+    tableElem.classList.add('grammar-table');
 
-  tables.forEach((tableData, index) => {
-    const section = document.createElement('section');
-
-    const heading = document.createElement('h2');
-    heading.textContent = `Table ${index + 1}`;
-    section.appendChild(heading);
-
-    const table = document.createElement('table');
-
-    // Collect all unique keys from the table
-    const allKeys = Array.from(
-      tableData.reduce((set, row) => {
-        Object.keys(row).forEach(k => set.add(k));
-        return set;
-      }, new Set())
-    );
-
-    // Header
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    allKeys.forEach(k => {
-      const th = document.createElement('th');
-      th.textContent = k;
-      headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
-
-    // Body
-    const tbody = document.createElement('tbody');
-    tableData.forEach(row => {
+    table.forEach(row => {
       const tr = document.createElement('tr');
-      allKeys.forEach(k => {
+      row.forEach(cell => {
         const td = document.createElement('td');
-        td.textContent = row[k] || '';
+        td.textContent = cell;
         tr.appendChild(td);
       });
-      tbody.appendChild(tr);
+      tableElem.appendChild(tr);
     });
 
-    table.appendChild(tbody);
-    section.appendChild(table);
-    container.appendChild(section);
+    container.appendChild(tableElem);
   });
 }
