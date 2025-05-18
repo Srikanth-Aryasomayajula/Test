@@ -175,7 +175,7 @@ fetch("grammatik.json")
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 		  }
         },
-        }
+        
       ]);
     });
   });
