@@ -141,6 +141,15 @@ fetch("grammatik.json")
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 		  }
         },
+	{
+          text: ["Ausnahme:   zu Hause = at home"],
+          matchPartial: true,
+          direction: "row",
+          span: 3,
+          style: { 
+            fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+		  }
+        },
 		  {
           text: ["werden + Partizip II", "wurden + Partizip II", "sein/haben + Partizip II + worden",
 		 "war + Part. II + worden", "werden + Part. II + werden", "werden + Partizip II + worden + sein"],
@@ -192,7 +201,7 @@ fetch("grammatik.json")
 	  	}
           },
 		  {
-          text: ["Verb Kojuktion (", "Note: \"möchten\""],
+          text: ["Verb Kojuktion (", "Note: \"möchten\"", "§ Ich hätte gern"],
           matchPartial: true,
           direction: "row",
           span: 11,
