@@ -36,8 +36,10 @@ function mergeCellsWhenContentMatches(tbody, mergeInstruction) {
       const content = cell.textContent.trim();
 
       const matches = texts.some(t =>
-        matchPartial ? content.includes(t) : content === t
-      );
+		matchPartial
+			? content.toLowerCase().includes(t.toLowerCase())
+			: content === t
+		);
 
       if (matches) {
         if (direction === "row") {
