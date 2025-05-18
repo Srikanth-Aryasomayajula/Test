@@ -106,7 +106,7 @@ fetch("grammatik.json")
         const tr = document.createElement("tr");
         for (const cell of row) {
           const td = document.createElement("td");
-          td.textContent = cell;
+          td.innerHTML = cell.replace(/\n/g, "<br>");
           tr.appendChild(td);
         }
         tbody.appendChild(tr);
@@ -230,7 +230,7 @@ fetch("grammatik.json")
 		  }
         },
 	{
-          text: [`has no real`],
+          text: [`Note: "möchten"`],
           matchPartial: true,
           direction: "row",
           span: 11,
