@@ -1,33 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Grammatik Tables Viewer</title>
+  <title>Grammatik Tables</title>
   <style>
-    table {
+    table.grammar-table {
       border-collapse: collapse;
       margin: 20px 0;
-      width: 100%;
     }
-    th, td {
-      border: 1px solid #aaa;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: #ddd;
-    }
-    section {
-      margin-bottom: 40px;
+    table.grammar-table td, table.grammar-table th {
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 4px 8px;
     }
   </style>
 </head>
 <body>
-  <h1>Grouped Grammatik Tables</h1>
-  <div id="tables-container"></div>
-
+  <div id="tablesContainer"></div>
   <script src="script.js"></script>
 </body>
 </html>
