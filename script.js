@@ -142,7 +142,7 @@ fetch("grammatik.json")
 	  boldWordsInTable(tbody, ["Nominativ", "Akkusativ", "Dativ", "Genetiv", "Maskulin", "Feminin", "Neuter",
 	    "Plural", "Remarks", "Type", "Case", "(O-FUDGE-bis)", "(MAN-VS-BAGZ)", "Wechsel", "(displacement vs position)",
 		"(UÜ VIZ. HAAN)", "Präsenz", "Singular", "MV - Singular", "MV - Plural", "NS - Singular", "NS - Plural",
-		"NS mit MV - Sin.", "NS mit MV - Pl.", "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II"
+		"NS mit MV - Sin.", "NS mit MV - Pl.", "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II",
 		"Kriterien", "Beispiele"]);
 
       // Call merging logic on tbody now that it is in DOM
