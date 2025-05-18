@@ -221,7 +221,25 @@ fetch("grammatik.json")
 		  }
         },
 	{
-          text: [`has no real`, `Verb Kojuktion (`, `Ich hätte gern`],
+          text: [`Ich hätte gern`],
+          matchPartial: true,
+          direction: "row",
+          span: 11,
+          style: { 
+            fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+		  }
+        },
+	{
+          text: [`has no real`],
+          matchPartial: true,
+          direction: "row",
+          span: 11,
+          style: { 
+            fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+		  }
+        },
+	{
+          text: [`Verb Kojuktion (`],
           matchPartial: true,
           direction: "row",
           span: 11,
