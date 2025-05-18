@@ -194,9 +194,17 @@ fetch("grammatik.json")
           },
 	{
           text: ["Bestimmtes / Unbestimmtes Wort", "Examples of Adjektiv Deklanation",
-		 "Personal Pronomen Adjektiv Deklanation", 
-		 "Hinweis: zwei, drei, vier, usw. folgen den Regeln des 'Ein' Satzes"],
+		 "Personal Pronomen Adjektiv Deklanation"],
           matchPartial: false,
+          direction: "row",
+          span: 6,
+          style: {
+			fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+	  	}
+          },
+	{
+          text: ["Hinweis: zwei, drei, vier"],
+          matchPartial: true,
           direction: "row",
           span: 6,
           style: {
@@ -207,13 +215,13 @@ fetch("grammatik.json")
           text: ["Konjuktiv II (I would come if…. Form) Conjugation"],
           matchPartial: false,
           direction: "row",
-          span: 18,
+          span: 8,
           style: { 
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 		  }
         },
 	{
-          text: [`Verb Kojuktion (`, `Note: "möchten"`, `§ Ich hätte gern`],
+          text: [`Verb Kojuktion (`, `has no real"`, `Ich hätte gern`],
           matchPartial: true,
           direction: "row",
           span: 11,
