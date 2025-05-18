@@ -1,3 +1,27 @@
+function boldWordsInTable(tbody, wordsToBold) {
+  if (!wordsToBold || wordsToBold.length === 0) return;
+
+  const regex = new RegExp(`\\b(${wordsToBold.map(w => escapeRegExp(w)).join('|')})\\b`, 'gi');
+
+  // Escape RegExp helper
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  for (const row of tbody.rows) {
+    for (const cell of row.cells) {
+      // Replace text while preserving <br>
+      let html = cell.innerHTML;
+
+      // Replace all matched words with <strong>wrapped
+      html = html.replace(regex, match => `<strong>${match}</strong>`);
+
+      cell.innerHTML = html;
+    }
+  }
+}
+
+
 function isEmptyRow(row) {
   return row.every(cell => !cell || cell.trim() === '');
 }
@@ -113,6 +137,13 @@ fetch("grammatik.json")
       }
       table.appendChild(tbody);
       container.appendChild(table);
+
+	// Bold these words anywhere in the table:
+	  boldWordsInTable(tbody, ["Nominativ", "Akkusativ", "Dativ", "Genetiv", "Maskulin", "Feminin", "Neuter",
+	    "Plural", "Remarks", "Type", "Case", "(O-FUDGE-bis)", "(MAN-VS-BAGZ)", "Wechsel", "(displacement vs position)",
+		"(UÜ VIZ. HAAN)", "Präsenz", "Singular", "MV - Singular", "MV - Plural", "NS - Singular", "NS - Plural",
+		"NS mit MV - Sin.", "NS mit MV - Pl.", "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II"
+		"Kriterien", "Beispiele"]);
 
       // Call merging logic on tbody now that it is in DOM
       mergeMultipleCells(tbody, [
