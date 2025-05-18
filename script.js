@@ -115,8 +115,17 @@ fetch("grammatik.json")
       // Call merging logic on tbody now that it is in DOM
       mergeMultipleCells(tbody, [
         {
-          text: ["Akkusativ (Displacement)", "Dativ (Position)"],
-          matchPartial: true,
+          text: ["Akkusativ (Displacement)"],
+          matchPartial: false,
+          direction: "row",
+          span: 2,
+          style: { 
+            fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+		  }
+        },
+	{
+          text: ["Dativ (Position)"],
+          matchPartial: false,
           direction: "row",
           span: 2,
           style: { 
