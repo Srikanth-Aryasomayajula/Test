@@ -132,14 +132,23 @@ fetch("grammatik.json")
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
 		  }
         },
-		  {
-          text: ["Präpostionen", "werden + Partizip II", "wurden + Partizip II", "sein/haben + Partizip II + worden",
-		 "war + Part. II + worden", "werden + Part. II + werden", "werden + Partizip II + worden + sein"],
+	{
+          text: ["Präpostionen"],
           matchPartial: false,
           direction: "row",
           span: 3,
           style: { 
             fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+		  }
+        },
+		  {
+          text: ["werden + Partizip II", "wurden + Partizip II", "sein/haben + Partizip II + worden",
+		 "war + Part. II + worden", "werden + Part. II + werden", "werden + Partizip II + worden + sein"],
+          matchPartial: false,
+          direction: "row",
+          span: 3,
+          style: { 
+            fontWeight: "bold", textAlign: "left", verticalAlign: "middle"
 		  }
         },
 		  {
