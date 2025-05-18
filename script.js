@@ -116,7 +116,7 @@ fetch("grammatik.json")
       mergeMultipleCells(tbody, [
         {
           text: ["Akkusativ (Displacement)", "Dativ (Position)"],
-          matchPartial: false,
+          matchPartial: true,
           direction: "row",
           span: 2,
           style: { 
