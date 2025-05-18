@@ -1,3 +1,22 @@
+function isEmptyRow(row) {
+  return row.every(cell => !cell || cell.trim() === '');
+}
+
+function removeEmptyColumns(tableData) {
+  const columnCount = tableData[0]?.length || 0;
+  const nonEmptyCols = Array(columnCount).fill(false);
+
+  for (const row of tableData) {
+    row.forEach((cell, idx) => {
+      if (cell && cell.trim() !== '') {
+        nonEmptyCols[idx] = true;
+      }
+    });
+  }
+
+  return tableData.map(row => row.filter((_, idx) => nonEmptyCols[idx]));
+}
+
 function mergeCellsWhenContentMatches(table, mergeInstructions) {
   const rows = Array.from(table.rows);
 
@@ -50,3 +69,53 @@ function mergeCellsWhenContentMatches(table, mergeInstructions) {
     }
   }
 }
+
+
+fetch("grammatik.json")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("tablesContainer");
+
+    const tables = [];
+    let currentTable = [];
+
+    for (const rowObj of data) {
+      const row = Object.values(rowObj);
+      if (isEmptyRow(row)) {
+        if (currentTable.length) {
+          const cleanedTable = removeEmptyColumns(currentTable);
+          tables.push(cleanedTable);
+          currentTable = [];
+        }
+      } else {
+        currentTable.push(row);
+      }
+    }
+    if (currentTable.length) {
+      const cleanedTable = removeEmptyColumns(currentTable);
+      tables.push(cleanedTable);
+    }
+
+    tables.forEach(tableData => {
+      const table = document.createElement("table");
+
+      for (const row of tableData) {
+        const tr = document.createElement("tr");
+        for (const cell of row) {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+
+      // Call merging logic here
+      mergeCellsWhenContentMatches(table, {
+        "Relativ Satz": { direction: "col", span: 3 },
+        "Personal Pronomen": { direction: "row", span: 2 }
+        // Add more patterns as needed
+      });
+
+      container.appendChild(table);
+    });
+  });
