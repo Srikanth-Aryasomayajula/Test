@@ -194,7 +194,8 @@ fetch("grammatik.json")
           },
 	{
           text: ["Bestimmtes / Unbestimmtes Wort", "Examples of Adjektiv Deklanation",
-		 "Personal Pronomen Adjektiv Deklanation"],
+		 "Personal Pronomen Adjektiv Deklanation", 
+		 "Hinweis: zwei, drei, vier, usw. folgen den Regeln des 'Ein' Satzes"],
           matchPartial: false,
           direction: "row",
           span: 6,
@@ -212,7 +213,7 @@ fetch("grammatik.json")
 		  }
         },
 	{
-          text: [`Verb Kojuktion (`, `Note: "möchten", "§ Ich hätte gern"`],
+          text: [`Verb Kojuktion (`, `Note: "möchten"`, `§ Ich hätte gern`],
           matchPartial: true,
           direction: "row",
           span: 11,
