@@ -154,6 +154,7 @@ fetch("grammatik.json")
           span: 5,
           style: {
 			fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+	  	}
           },
 		  {
           text: ["Bestimmtes / Unbestimmtes Wort", "Examples of Adjektiv Deklanation",
@@ -163,6 +164,7 @@ fetch("grammatik.json")
           span: 6,
           style: {
 			fontWeight: "bold", textAlign: "center", verticalAlign: "middle"
+	  	}
           },
 		  {
           text: ["Verb Kojuktion (", "Note: \"möchten\""],
