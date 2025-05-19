@@ -137,8 +137,13 @@ function insertBlanksIntoStyledTable(tbody, tableData) {
 
     // Skip bold headers or note-style entries
     const boldWords = getBoldWords();
-    if (boldWords.some(bw => correctAnswer.includes(bw))) return;
-    if (getExcludedPronouns().some(p => correctAnswer === p)) return;
+    const mergeTexts = getMergeConfigsGram().flatMap(config => config.text);
+
+    if (
+      boldWords.some(bw => correctAnswer.includes(bw)) ||
+      getExcludedPronouns().some(p => correctAnswer === p) ||
+      mergeTexts.some(text => correctAnswer.includes(text))
+    ) return;
 
     // Split if '=' is present, blank only left-hand side
     if (correctAnswer.includes("=")) {
@@ -281,15 +286,36 @@ function mergeMultipleCells(tbody, configs) {
   for (const config of configs) {
     const { text, direction, span, matchPartial, style } = config;
 
-    for (const row of tbody.rows) {
-      for (const cell of row.cells) {
+    for (let rowIndex = 0; rowIndex < tbody.rows.length; rowIndex++) {
+      const row = tbody.rows[rowIndex];
+
+      for (let cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
+        const cell = row.cells[cellIndex];
         for (const t of text) {
           const match = matchPartial
             ? cell.innerText.includes(t)
             : cell.innerText.trim() === t.trim();
+
           if (match) {
-            if (direction === "row") cell.colSpan = span;
-            if (direction === "col") cell.rowSpan = span;
+            if (direction === "row") {
+              cell.colSpan = span;
+              // Remove next (span - 1) cells in same row
+              for (let k = 1; k < span; k++) {
+                if (row.cells[cellIndex + 1]) {
+                  row.deleteCell(cellIndex + 1);
+                }
+              }
+            }
+
+            if (direction === "col") {
+              cell.rowSpan = span;
+              for (let k = 1; k < span; k++) {
+                const nextRow = tbody.rows[rowIndex + k];
+                if (nextRow && nextRow.cells[cellIndex]) {
+                  nextRow.deleteCell(cellIndex);
+                }
+              }
+            }
 
             for (const key in style) {
               cell.style[key] = style[key];
