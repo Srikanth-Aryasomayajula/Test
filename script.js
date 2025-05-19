@@ -75,9 +75,15 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
   boldWordsInTable(tbody, getBoldWords());
   mergeMultipleCells(tbody, getMergeConfigsGram());
   const flashcardTable = insertBlanksIntoStyledTable(tbody, copiedTable, tableNumber);
+  flashcardTable.className = "flashcard-table";
+
 
   const container = document.getElementById("flashcard-container");
   container.innerHTML = "";
+  
+  const card = document.createElement("div");
+  card.className = "flashcard";
+  
   container.appendChild(flashcardTable);
 
 	// Navigation Buttons
