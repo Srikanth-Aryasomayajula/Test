@@ -1,0 +1,118 @@
+
+/* Style for the flashcard container */
+.flashcard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.flashcard {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 800px;
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1rem auto;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.flashcard p {
+  margin: 0.5rem 0;
+}
+
+#flashcardsContainer button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#flashcardsContainer div {
+  width: 100%;
+}
+
+#flashcardsContainer .button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 40px;
+}
+
+.progress-indicator {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.flashcard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.flashcard-table th,
+.flashcard-table td {
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+}
+
+.flashcard-table th {
+  width: 30%;
+  font-weight: 600;
+  color: #333;
+}
+
+.flashcard-table tr.hidden-answer {
+  display: none; /* Hide the row */
+}
+
+.flashcard-progress {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.option-group {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.option-group label {
+  cursor: pointer;
+}
+
+.blank-group {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.blank-group label {
+  display: block;
+  margin: 2px 0;
+}
+
+.practice-card {
+  padding: 1rem;
+  background: #f4f4f4;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
