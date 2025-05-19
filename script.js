@@ -54,7 +54,7 @@ function removeEmptyColumns(table) {
 function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = null) {
   const randomIndex = currentIndex !== null ? currentIndex : Math.floor(Math.random() * allTables.length);
   const tableData = allTables[randomIndex];
-  const tableNumber = randomIndex;
+  const tableNumber = currentIndex !== null ? currentIndex + 1 : 1;
   const copiedTable = tableData.map(row => [...row]);
 
   const table = document.createElement("table");
@@ -116,7 +116,7 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
 	
 	const tableCountDisplay = document.createElement("div");
 	tableCountDisplay.className = "progress-indicator";
-	tableCountDisplay.textContent = `Table ${randomIndex + 1}/${allTables.length}`;
+	tableCountDisplay.textContent = `Table ${tableNumber} of ${allTables.length}`;
 	tableCountDisplay.style.cssText = "margin: 10px 0; font-weight: bold; text-align: center;";
 	container.appendChild(tableCountDisplay);
 
