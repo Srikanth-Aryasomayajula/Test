@@ -84,7 +84,13 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
   const card = document.createElement("div");
   card.className = "flashcard";
   
-  container.appendChild(flashcardTable);
+	card.appendChild(flashcardTable);
+	card.appendChild(tableCountDisplay);
+	card.appendChild(buttonRow);
+	
+	container.innerHTML = "";
+	container.appendChild(card);
+  
 
 	// Navigation Buttons
 	currentIndex = currentIndex !== null ? currentIndex : 0;
