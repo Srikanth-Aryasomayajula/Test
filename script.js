@@ -1,3 +1,105 @@
+function generateFlashcardFromRandomTable(allTables) {
+  const randomIndex = Math.floor(Math.random() * allTables.length);
+  const tableData = allTables[randomIndex];
+  const tableNumber = randomIndex;
+
+  // Deep copy so original isn't affected
+  const copiedTable = tableData.map(row => [...row]);
+
+  // Identify candidate cells for blanking
+  const candidateCells = [];
+  copiedTable.forEach((row, i) => {
+    row.forEach((cell, j) => {
+      if (cell && cell.trim()) candidateCells.push({ row: i, col: j, value: cell });
+    });
+  });
+
+  // Randomly choose up to 4 blanks
+  const blankCount = Math.min(4, candidateCells.length);
+  const selected = candidateCells.sort(() => 0.5 - Math.random()).slice(0, blankCount);
+
+  // Create flashcard container
+  const container = document.getElementById("flashcardContainer");
+  container.innerHTML = ""; // Clear previous
+  const table = document.createElement("table");
+
+  copiedTable.forEach((row, i) => {
+    const tr = document.createElement("tr");
+    row.forEach((cell, j) => {
+      const td = document.createElement("td");
+
+      const match = selected.find(sel => sel.row === i && sel.col === j);
+      if (match) {
+        const correctAnswer = match.value.trim();
+        const otherAnswers = selected
+          .filter(s => !(s.row === i && s.col === j))
+          .map(s => s.value.trim());
+
+        const options = shuffleArray([correctAnswer, ...otherAnswers].slice(0, 4));
+
+        const blankDiv = document.createElement("div");
+        blankDiv.textContent = "_____";
+
+        const optionsDiv = document.createElement("div");
+        options.forEach(opt => {
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `blank-${i}-${j}`;
+          input.dataset.answer = correctAnswer;
+          input.value = opt;
+          input.dataset.row = i;
+          input.dataset.col = j;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(opt));
+          optionsDiv.appendChild(label);
+          optionsDiv.appendChild(document.createElement("br"));
+        });
+
+        td.appendChild(blankDiv);
+        td.appendChild(optionsDiv);
+      } else {
+        td.innerHTML = cell.replace(/\n/g, "<br>");
+      }
+
+      tr.appendChild(td);
+    });
+    table.appendChild(tr);
+  });
+
+  container.appendChild(table);
+
+  // Add Submit button
+  const submitBtn = document.createElement("button");
+  submitBtn.textContent = "Submit";
+  submitBtn.onclick = () => evaluateTextInputsGram(tableNumber);
+  container.appendChild(submitBtn);
+}
+
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function evaluateTextInputsGram(tableNumber) {
+  const inputs = document.querySelectorAll(`input[type="radio"]:checked`);
+  inputs.forEach(input => {
+    const userAnswer = input.value.trim().toLowerCase();
+    const correctAnswer = input.dataset.answer.trim().toLowerCase();
+
+    const resultIcon = document.createElement("span");
+    resultIcon.textContent = userAnswer === correctAnswer ? "✅" : "❌";
+    resultIcon.style.marginLeft = "5px";
+    resultIcon.style.color = userAnswer === correctAnswer ? "green" : "red";
+    input.parentNode.appendChild(resultIcon);
+
+    const correctDisplay = document.createElement("div");
+    correctDisplay.textContent = `Answer: ${input.dataset.answer}`;
+    correctDisplay.style.color = "blue";
+    input.parentNode.appendChild(correctDisplay);
+  });
+}
+
+
 function boldWordsInTable(tbody, wordsToBold) {
   if (!wordsToBold || wordsToBold.length === 0) return;
 
@@ -124,7 +226,8 @@ fetch("grammatik.json")
 
 	tables.forEach((tableData, tableIndex) => {
 	  const table = document.createElement("table");
-	  table.setAttribute("data-table-index", tableIndex); 
+	  table.dataset.tableNumber = tableIndex; // Internal ID 
+	
       const tbody = document.createElement("tbody");
 
 
