@@ -265,8 +265,6 @@ function boldWordsInTable(tbody, keywords) {
 
 function getBoldWords() {
   return [
-    "I",	"ich", "you", "you (inf.)",	"du", "he/she/it",	"er/sie/se", "we", 
-	"wir", "you (pl.,inf.)",	"ihr", "you (form.)/they",	"Sie/sie",
 	"Nominativ", "Akkusativ", "Dativ", "Genetiv", "Maskulin", "Feminin", "Neuter",
     "Plural", "Remarks", "Type", "Case", "(O-FUDGE-bis)", "(MAN-VS-BAGZ)", "Wechsel",
     "(displacement vs position)", "(UÜ VIZ. HAAN)", "Präsenz", "Singular", "MV - Singular",
