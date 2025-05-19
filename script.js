@@ -1,7 +1,3 @@
-This code is fine. Just one modification. 
-When I am getting 
-
-my code:
 (async function main() {
   const data = await fetchDataGram("grammatik.json");
   const tables = prepareDataGram(data);
