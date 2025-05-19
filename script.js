@@ -81,7 +81,7 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
   container.appendChild(flashcardTable);
 
 	// Navigation Buttons
-	let currentIndex = 0;
+	currentIndex = currentIndex !== null ? currentIndex : 0;
 
 	const buttonRow = document.createElement("div");
 	buttonRow.className = "button-wrapper";
