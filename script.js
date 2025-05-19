@@ -113,6 +113,13 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
 	buttonRow.appendChild(prevBtn);
 	buttonRow.appendChild(submitBtn);
 	buttonRow.appendChild(nextBtn);
+	
+	const tableCountDisplay = document.createElement("div");
+	tableCountDisplay.className = "table-count";
+	tableCountDisplay.textContent = `Table ${randomIndex + 1}/${allTables.length}`;
+	tableCountDisplay.style.cssText = "margin: 10px 0; font-weight: bold; text-align: center;";
+	container.appendChild(tableCountDisplay);
+
 	container.appendChild(buttonRow);
 
 }
