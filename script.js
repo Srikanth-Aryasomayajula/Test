@@ -321,7 +321,7 @@ function getMergeConfigsGram() {
 	{ text: ["Adjektiv Deklanation (mit bestimmten artikel der/die/das)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
 	{ text: ["Adjektiv Deklanation (mit unbestimmten artikel ein/eine/ein)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
 	{ text: ["Adjektiv Deklanation (ohne artikel)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
-	{ text: ["Relativpronomen""], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Relativpronomen"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
 	{ text: ["Relativ Satz (Just like 'which', 'who', etc. in English)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
 	{ text: ["Examples of Adjektiv Deklanation"], matchPartial: false, direction: "row", span: 6, style: styleCenter() },
 	{ text: ["Bestimmtes / Unbestimmtes Wort"], matchPartial: false, direction: "row", span: 6, style: styleCenter() },
