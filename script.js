@@ -138,6 +138,7 @@ function insertBlanksIntoStyledTable(tbody, tableData) {
     // Skip bold headers or note-style entries
     const boldWords = getBoldWords();
     if (boldWords.some(bw => correctAnswer.includes(bw))) return;
+    if (getExcludedPronouns().some(p => correctAnswer === p)) return;
 
     // Split if '=' is present, blank only left-hand side
     if (correctAnswer.includes("=")) {
@@ -266,6 +267,13 @@ function getBoldWords() {
     "(displacement vs position)", "(UÜ VIZ. HAAN)", "Präsenz", "Singular", "MV - Singular",
     "MV - Plural", "NS - Singular", "NS - Plural", "NS mit MV - Sin.", "NS mit MV - Pl.",
     "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II", "Kriterien", "Beispiele"
+  ];
+}
+
+function getExcludedPronouns() {
+  return [
+    "I", "ich", "you", "you (inf.)", "du", "he/she/it", "er/sie/es", "we", "wir",
+    "you (pl.,inf.)", "ihr", "you (form.)/they", "Sie/sie"
   ];
 }
 
