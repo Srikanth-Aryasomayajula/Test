@@ -122,9 +122,11 @@ fetch("grammatik.json")
       tables.push(cleanedTable);
     }
 
-    tables.forEach(tableData => {
-      const table = document.createElement("table");
+	tables.forEach((tableData, tableIndex) => {
+	  const table = document.createElement("table");
+	  table.setAttribute("data-table-index", tableIndex); 
       const tbody = document.createElement("tbody");
+
 
       for (const row of tableData) {
         const tr = document.createElement("tr");
