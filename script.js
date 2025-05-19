@@ -272,8 +272,8 @@ function getBoldWords() {
 
 function getExcludedPronouns() {
   return [
-    "I", "ich", "you", "you (inf.)", "du", "he/she/it", "er/sie/es", "we", "wir",
-    "you (pl.,inf.)", "ihr", "you (form.)/they", "Sie/sie"
+    "I", "ich", "you", "you (inf.)", "du", "he/she/it", "er/sie/es", "er/es", "we", "wir",
+    "you (pl.,inf.)", "ihr", "you (form.)/they", "Sie/sie", "sie/sie"
   ];
 }
 
@@ -307,11 +307,25 @@ function getMergeConfigsGram() {
     { text: ["Dativ (Position)"], matchPartial: false, direction: "row", span: 2, style: styleCenter() },
     { text: ["Präpostionen"], matchPartial: false, direction: "row", span: 3, style: styleCenter() },
     { text: ["Ausnahme:   zu Hause = at home"], matchPartial: true, direction: "row", span: 3, style: styleCenter() },
-	{ text: ["werden + Partizip II", "wurden + Partizip II", "sein/haben + Partizip II + worden", "war + Part. II + worden", "werden + Part. II + werden", "werden + Partizip II + worden + sein"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},
-    { text: ["MV: Modal Verb"], matchPartial: true, direction: "col", span: 3, style: styleCenter() },
-    { text: ["Wechsel Verben (Wohin oder wo?)", "Passiv Satz", "N-Deklanation"], matchPartial: false, direction: "row", span: 4, style: styleCenter() },
-    { text: ["Personal Pronomen", "Adjektiv Deklanation (mit bestimmten artikel der/die/das)", "Adjektiv Deklanation (mit unbestimmten artikel ein/eine/ein)", "Adjektiv Deklanation (ohne artikel)", "Relativpronomen", "Relativ Satz (Just like 'which', 'who', etc. in English)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
-	{ text: ["Bestimmtes / Unbestimmtes Wort", "Examples of Adjektiv Deklanation", "Personal Pronomen Adjektiv Deklanation"], matchPartial: false, direction: "row", span: 6, style: styleCenter() },
+    { text: ["werden + Partizip II"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},
+    { text: ["wurden + Partizip II"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},
+	{ text: ["sein/haben + Partizip II + worden"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},
+	{ text: ["war + Part. II + worden"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},
+	{ text: ["werden + Part. II + werden"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},  
+	{ text: ["werden + Partizip II + worden + sein"], matchPartial: false, direction: "row", span: 3, style: { fontWeight: "bold", textAlign: "left", verticalAlign: "middle" }},
+	{ text: ["MV: Modal Verb"], matchPartial: true, direction: "col", span: 3, style: styleCenter() },
+    { text: ["Passiv Satz"], matchPartial: false, direction: "row", span: 4, style: styleCenter() },
+	{ text: ["N-Deklanation"], matchPartial: false, direction: "row", span: 4, style: styleCenter() },
+	{ text: ["Wechsel Verben (Wohin oder wo?)"], matchPartial: false, direction: "row", span: 4, style: styleCenter() },
+    { text: ["Personal Pronomen"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Adjektiv Deklanation (mit bestimmten artikel der/die/das)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Adjektiv Deklanation (mit unbestimmten artikel ein/eine/ein)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Adjektiv Deklanation (ohne artikel)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Relativpronomen""], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Relativ Satz (Just like 'which', 'who', etc. in English)"], matchPartial: false, direction: "row", span: 5, style: styleCenter() },
+	{ text: ["Examples of Adjektiv Deklanation"], matchPartial: false, direction: "row", span: 6, style: styleCenter() },
+	{ text: ["Bestimmtes / Unbestimmtes Wort"], matchPartial: false, direction: "row", span: 6, style: styleCenter() },
+	{ text: ["Personal Pronomen Adjektiv Deklanation"], matchPartial: false, direction: "row", span: 6, style: styleCenter() },
 	{ text: ["Hinweis: zwei, drei, vier"], matchPartial: true, direction: "row", span: 6, style: styleCenter() },
 	{ text: ["Konjuktiv II (I would come if…. Form) Conjugation"], matchPartial: false, direction: "row", span: 8, style: styleCenter() },
     { text: [`Ich hätte gern`], matchPartial: true, direction: "row", span: 11, style: styleCenter() },
