@@ -51,8 +51,8 @@ function removeEmptyColumns(table) {
   return table.map(row => row.filter((_, i) => !isEmptyCol[i]));
 }
 
-function generateStyledFlashcardFromRandomTableGram(allTables) {
-  const randomIndex = Math.floor(Math.random() * allTables.length);
+function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = null) {
+  const randomIndex = currentIndex !== null ? currentIndex : Math.floor(Math.random() * allTables.length);
   const tableData = allTables[randomIndex];
   const tableNumber = randomIndex;
   const copiedTable = tableData.map(row => [...row]);
@@ -80,10 +80,41 @@ function generateStyledFlashcardFromRandomTableGram(allTables) {
   container.innerHTML = "";
   container.appendChild(flashcardTable);
 
-  const submitBtn = document.createElement("button");
-  submitBtn.textContent = "Submit";
-  submitBtn.onclick = () => evaluateTextInputsGram();
-  container.appendChild(submitBtn);
+	// Navigation Buttons
+	let currentIndex = 0;
+
+	const buttonRow = document.createElement("div");
+	buttonRow.className = "button-wrapper";
+
+	const prevBtn = document.createElement("button");
+	prevBtn.textContent = "Previous";
+	prevBtn.id = "prevBtn";
+	prevBtn.style.display = "none";
+	prevBtn.addEventListener("click", () => {
+	  currentIndex = (currentIndex - 1 + allTables.length) % allTables.length;
+	  generateStyledFlashcardFromRandomTableGram(allTables, currentIndex);
+	});
+
+	const submitBtn = document.createElement("button");
+	submitBtn.textContent = "Submit";
+	submitBtn.id = "submitBtn";
+	submitBtn.className = "loadPracticeBtn";
+	submitBtn.addEventListener("click", () => evaluateTextInputsGram());
+
+	const nextBtn = document.createElement("button");
+	nextBtn.textContent = "Next";
+	nextBtn.id = "nextBtn";
+	nextBtn.style.display = "none";
+	nextBtn.addEventListener("click", () => {
+	  currentIndex = (currentIndex + 1) % allTables.length;
+	  generateStyledFlashcardFromRandomTableGram(allTables, currentIndex);
+	});
+
+	buttonRow.appendChild(prevBtn);
+	buttonRow.appendChild(submitBtn);
+	buttonRow.appendChild(nextBtn);
+	container.appendChild(buttonRow);
+
 }
 
 function insertBlanksIntoStyledTable(tbody, tableData) {
@@ -97,11 +128,22 @@ function insertBlanksIntoStyledTable(tbody, tableData) {
     });
   });
 
-  const blankCount = Math.min(4, candidateCells.length);
+  const blankCount = Math.floor(candidateCells.length * 0.85);
   const selected = shuffleArray(candidateCells).slice(0, blankCount);
 
   selected.forEach(({ row: i, col: j, value }) => {
-    const correctAnswer = value.trim();
+	
+	let correctAnswer = value.trim();
+
+    // Skip bold headers or note-style entries
+    const boldWords = getBoldWords();
+    if (boldWords.some(bw => correctAnswer.includes(bw))) return;
+
+    // Split if '=' is present, blank only left-hand side
+    if (correctAnswer.includes("=")) {
+      correctAnswer = correctAnswer.split("=")[0].trim();
+    }
+
     const otherAnswers = selected
       .filter(s => !(s.row === i && s.col === j))
       .map(s => s.value.trim());
@@ -149,23 +191,52 @@ function evaluateTextInputsGram() {
 
   for (const name in grouped) {
     const group = grouped[name];
-    const correct = group[0].dataset.answer;
+    const correctAnswer = group[0].dataset.answer;
     const selected = group.find(r => r.checked);
 
-    group.forEach(input => {
-      const label = input.parentElement;
-      label.classList.remove("correct", "incorrect");
+    if (selected) {
+      const isCorrect = selected.value === correctAnswer;
+      const resultIcon = document.createElement("span");
+      resultIcon.textContent = isCorrect ? "✅" : "❌";
+      resultIcon.style.color = isCorrect ? "green" : "red";
+      selected.parentNode.appendChild(resultIcon);
 
-      if (selected && input.value === selected.value) {
-        label.classList.add(input.value === correct ? "correct" : "incorrect");
-      }
+      if (!isCorrect) {
+        const correctInput = group.find(i => i.value === correctAnswer);
+        const parentDiv = selected.closest("div");
+        const existing = parentDiv.querySelector(".correct-combo");
 
-      if (!selected && input.value === correct) {
-        label.classList.add("correct");
+        if (!existing) {
+          parentDiv.style.display = "block";
+          const correctAnswerSpan = document.createElement("div");
+          correctAnswerSpan.className = "correct-combo";
+          correctAnswerSpan.textContent = `Answer: ${correctInput.dataset.answer}`;
+          correctAnswerSpan.style.cssText = "color: blue; margin-top: 4px; display: block;";
+          parentDiv.appendChild(correctAnswerSpan);
+        }
       }
-    });
+    } else {
+      // No radio selected
+      const answerCell = group[0]?.closest("td");
+      const resultIcon = document.createElement("span");
+      resultIcon.textContent = "❌";
+      resultIcon.style.color = "red";
+      group[0].parentNode.appendChild(resultIcon);
+
+      const correctInput = group.find(i => i.value === correctAnswer);
+      const correctAnswerSpan = document.createElement("div");
+      correctAnswerSpan.textContent = `Answer: ${correctInput.dataset.answer}`;
+      correctAnswerSpan.style.color = "blue";
+      answerCell.appendChild(correctAnswerSpan);
+    }
   }
+
+  // Show navigation buttons
+  document.getElementById("nextBtn")?.style.setProperty("display", "inline-block");
+  document.getElementById("prevBtn")?.style.setProperty("display", "inline-block");
+  document.getElementById("submitBtn")?.style.setProperty("display", "none");
 }
+
 
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
