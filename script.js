@@ -76,7 +76,7 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
   mergeMultipleCells(tbody, getMergeConfigsGram());
   const flashcardTable = insertBlanksIntoStyledTable(tbody, copiedTable, tableNumber);
 
-  const container = document.getElementById("flashcardContainer");
+  const container = document.getElementById("flashcard-container");
   container.innerHTML = "";
   container.appendChild(flashcardTable);
 
@@ -115,7 +115,7 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
 	buttonRow.appendChild(nextBtn);
 	
 	const tableCountDisplay = document.createElement("div");
-	tableCountDisplay.className = "progress-indicator";
+	tableCountDisplay.className = "flashcard-progress";
 	tableCountDisplay.textContent = `Table ${tableNumber} of ${allTables.length}`;
 	tableCountDisplay.style.cssText = "margin: 10px 0; font-weight: bold; text-align: center;";
 	container.appendChild(tableCountDisplay);
