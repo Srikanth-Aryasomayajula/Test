@@ -85,8 +85,6 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
   card.className = "flashcard";
   
 	card.appendChild(flashcardTable);
-	card.appendChild(tableCountDisplay);
-	card.appendChild(buttonRow);
 	
 	container.innerHTML = "";
 	container.appendChild(card);
