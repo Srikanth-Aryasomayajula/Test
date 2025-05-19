@@ -150,9 +150,16 @@ function insertBlanksIntoStyledTable(tbody, tableData) {
       correctAnswer = correctAnswer.split("=")[0].trim();
     }
 
-    const otherAnswers = selected
-      .filter(s => !(s.row === i && s.col === j))
-      .map(s => s.value.trim());
+    const excludedSet = new Set([
+	  ...getBoldWords(),
+	  ...getExcludedPronouns(),
+	  ...getMergeConfigsGram().flatMap(config => config.text),
+	]);
+
+	const otherAnswers = selected
+	  .filter(s => !(s.row === i && s.col === j))
+	  .map(s => s.value.trim())
+	  .filter(val => !excludedSet.has(val));
 
     const options = shuffleArray([correctAnswer, ...otherAnswers].slice(0, 4));
 
