@@ -276,14 +276,16 @@ function getBoldWords() {
     "Plural", "Remarks", "Type", "Case", "(O-FUDGE-bis)", "(MAN-VS-BAGZ)", "Wechsel",
     "(displacement vs position)", "(UÜ VIZ. HAAN)", "Präsenz", "Singular", "MV - Singular",
     "MV - Plural", "NS - Singular", "NS - Plural", "NS mit MV - Sin.", "NS mit MV - Pl.",
-    "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II", "Kriterien", "Beispiele"
+    "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II", "Kriterien", "Beispiele",
+	"Würde-Form + Infinitiv for regelmäßig Präteritum", "Unregelmäßig Präteritum",
+	"Modalverben im Konjunktiv (Modalverb [finites Verb] + Infinitiv)" 
   ];
 }
 
 function getExcludedPronouns() {
   return [
     "I", "ich", "you", "you (inf.)", "du", "he/she/it", "er/sie/es", "er/es", "we", "wir",
-    "you (pl.,inf.)", "ihr", "you (form.)/they", "Sie/sie", "sie/sie"
+    "you (pl.,inf.)", "ihr", "you (form.)/they", "Sie/sie", "sie/sie", "würden form can also be used for these"
   ];
 }
 
