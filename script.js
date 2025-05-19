@@ -68,7 +68,7 @@ function renderTablesGram(tables, containerId = "tablesContainer") {
       "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II", "Kriterien", "Beispiele"
     ]);
 
-    mergeMultipleCells(tbody, getMergeConfigs());
+    mergeMultipleCells(tbody, getMergeConfigsGram());
   });
 }
 
