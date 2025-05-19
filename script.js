@@ -1,7 +1,7 @@
 (async function main() {
   const data = await fetchDataGram("grammatik.json");
   const tables = prepareDataGram(data);
-  renderTablesGram(tables);
+  generateStyledFlashcardFromRandomTableGram(tables);
 })();
 
 // Fetch data from grammatik.json
@@ -9,6 +9,108 @@ async function fetchDataGram(url) {
   const response = await fetch(url);
   return await response.json();
 }
+
+function insertBlanksIntoStyledTable(tbody, tableData, tableNumber) {
+  const candidateCells = [];
+
+  tableData.forEach((row, i) => {
+    row.forEach((cell, j) => {
+      if (cell && cell.trim()) {
+        candidateCells.push({ row: i, col: j, value: cell });
+      }
+    });
+  });
+
+  const blankCount = Math.min(4, candidateCells.length);
+  const selected = candidateCells.sort(() => 0.5 - Math.random()).slice(0, blankCount);
+
+  selected.forEach(({ row: i, col: j, value }) => {
+    const correctAnswer = value.trim();
+    const otherAnswers = selected
+      .filter(s => !(s.row === i && s.col === j))
+      .map(s => s.value.trim());
+
+    const options = shuffleArray([correctAnswer, ...otherAnswers].slice(0, 4));
+
+    const cell = tbody.rows[i]?.cells[j];
+    if (!cell) return;
+
+    cell.innerHTML = ""; // Clear existing content
+
+    const blankDiv = document.createElement("div");
+    blankDiv.textContent = "_____";
+
+    const optionsDiv = document.createElement("div");
+    options.forEach(opt => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `blank-${i}-${j}`;
+      input.dataset.answer = correctAnswer;
+      input.value = opt;
+      input.dataset.row = i;
+      input.dataset.col = j;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(opt));
+      optionsDiv.appendChild(label);
+      optionsDiv.appendChild(document.createElement("br"));
+    });
+
+    cell.appendChild(blankDiv);
+    cell.appendChild(optionsDiv);
+  });
+
+  return tbody.parentElement; // Return <table>
+}
+
+
+function generateStyledFlashcardFromRandomTableGram(allTables) {
+  const randomIndex = Math.floor(Math.random() * allTables.length);
+  const tableData = allTables[randomIndex];
+  const tableNumber = randomIndex;
+
+  // Clone the table before mutating
+  const copiedTable = tableData.map(row => [...row]);
+
+  // Create a <table> element and style it using your existing logic
+  const table = document.createElement("table");
+  const tbody = document.createElement("tbody");
+
+  copiedTable.forEach(row => {
+    const tr = document.createElement("tr");
+    row.forEach(cell => {
+      const td = document.createElement("td");
+      td.innerHTML = cell.replace(/\n/g, "<br>");
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+
+  // Apply bolding and merging logic
+  boldWordsInTable(tbody, [
+    "Nominativ", "Akkusativ", "Dativ", "Genetiv", "Maskulin", "Feminin", "Neuter",
+    "Plural", "Remarks", "Type", "Case", "(O-FUDGE-bis)", "(MAN-VS-BAGZ)", "Wechsel",
+    "(displacement vs position)", "(UÜ VIZ. HAAN)", "Präsenz", "Singular", "MV - Singular",
+    "MV - Plural", "NS - Singular", "NS - Plural", "NS mit MV - Sin.", "NS mit MV - Pl.",
+    "Präteritum", "Perfekt", "Plusquamperfekt", "Futur I", "Futur II", "Kriterien", "Beispiele"
+  ]);
+  mergeMultipleCells(tbody, getMergeConfigsGram());
+
+  // Now apply flashcard logic (insert blanks & options)
+  const flashcardTable = insertBlanksIntoStyledTable(tbody, copiedTable, tableNumber);
+
+  const container = document.getElementById("flashcardContainer");
+  container.innerHTML = "";
+  container.appendChild(flashcardTable);
+
+  const submitBtn = document.createElement("button");
+  submitBtn.textContent = "Submit";
+  submitBtn.onclick = () => evaluateTextInputsGram(tableNumber);
+  container.appendChild(submitBtn);
+}
+
 
 // Prepare and clean table data for grammatik
 function prepareDataGram(data) {
