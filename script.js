@@ -380,22 +380,25 @@ function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-function evaluateTextInputsGram(tableNumber) {
-  const inputs = document.querySelectorAll(`input[type="radio"]:checked`);
+function evaluateRadioAnswersGram() {
+  const inputs = document.querySelectorAll("#flashcardContainer input[type='radio']:checked");
+
   inputs.forEach(input => {
-    const userAnswer = input.value.trim().toLowerCase();
-    const correctAnswer = input.dataset.answer.trim().toLowerCase();
+    const userAnswer = input.value;
+    const correctAnswer = input.dataset.answer;
 
-    const resultIcon = document.createElement("span");
-    resultIcon.textContent = userAnswer === correctAnswer ? "✅" : "❌";
-    resultIcon.style.marginLeft = "5px";
-    resultIcon.style.color = userAnswer === correctAnswer ? "green" : "red";
-    input.parentNode.appendChild(resultIcon);
+    const resultSpan = document.createElement("span");
+    resultSpan.style.fontWeight = "bold";
+    resultSpan.style.marginLeft = "8px";
+    if (userAnswer === correctAnswer) {
+      resultSpan.textContent = "✓";
+      resultSpan.style.color = "green";
+    } else {
+      resultSpan.textContent = `✗ (richtig: ${correctAnswer})`;
+      resultSpan.style.color = "red";
+    }
 
-    const correctDisplay = document.createElement("div");
-    correctDisplay.textContent = `Answer: ${input.dataset.answer}`;
-    correctDisplay.style.color = "blue";
-    input.parentNode.appendChild(correctDisplay);
+    input.parentNode.appendChild(resultSpan);
   });
 }
 
