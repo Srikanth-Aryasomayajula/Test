@@ -1,3 +1,7 @@
+This code is fine. Just one modification. 
+When I am getting 
+
+my code:
 (async function main() {
   const data = await fetchDataGram("grammatik.json");
   const tables = prepareDataGram(data);
@@ -115,7 +119,7 @@ function generateStyledFlashcardFromRandomTableGram(allTables, currentIndex = nu
 	buttonRow.appendChild(nextBtn);
 	
 	const tableCountDisplay = document.createElement("div");
-	tableCountDisplay.className = "table-count";
+	tableCountDisplay.className = "progress-indicator";
 	tableCountDisplay.textContent = `Table ${randomIndex + 1}/${allTables.length}`;
 	tableCountDisplay.style.cssText = "margin: 10px 0; font-weight: bold; text-align: center;";
 	container.appendChild(tableCountDisplay);
