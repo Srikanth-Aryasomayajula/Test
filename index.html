@@ -1,13 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Grammatik Tables</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FEM Hub - Understanding Structural Analyses in FEM - Part 1: Static vs. Dynamic Analysis</title>
+  <meta name="post-summary" content="An introductory dive into the finite element method and its modern applications. An introductory dive into the finite element method and its modern applications." />
   <link rel="stylesheet" href="styles.css" />
+  
+  <script src="main.js" defer></script>
 </head>
 <body>
-  <div id="flashcard-container"></div>
-   <div id="test-tobedeleted"></div>
-  <script src="script.js"></script>
+  <div id="header"></div>
+  <h1>Understanding Structural Analyses in FEM - Part 1: Static vs. Dynamic Analysis</h1>
+
+  <main class="post">
+    <p>Welcome to FEM Hub's exploration of structural analyses in Finite Element Method (FEM). In this comprehensive series, we'll unravel the intricate world of structural analysis, beginning with a deep dive into the difference between static and dynamic analyses.</p>
+
+
+	<p>While we've touched on various aspects of FEM before, this marks the beginning of our focused journey into the heart of finite element analysis and its applications. As we progress, we'll delve into additional dimensions of structural analyses, including implicit vs. explicit, linear vs. nonlinear, and more. Join us on this journey to gain a solid grasp of structural analyses in FEM. Your exploration of this fascinating field begins here!</p>
+	
+	<!--<div class="post-image-container" onclick="expandImage('./images/TypesOfStructuralAnalyses.jpg')" style="--container-scale: 1.0; transform: scale(var(--container-scale)); transform-origin: center;">
+      <img src="./images/TypesOfStructuralAnalyses.jpg" alt="Types of Structural Analyses" class="post-image" id="TypesOfStructuralAnalyses">
+      <button class="expand-btn" style="transform: scale(calc(1 / var(--container-scale))); transform-origin: center;">Expand</button>
+    </div>-->
+	
+	<div id="TypesOfStructuralAnalyses"></div>
+
+	<script>
+	  document.addEventListener("DOMContentLoaded", () => {
+		insertImage({
+		  name: "TypesOfStructuralAnalyses",
+		  format: "jpg",
+		  altText: "Types Of Structural Analyses",
+		  webZoom: 0.7,
+		  mobileZoom: 1.0
+		});
+	  });
+	</script>
+
+
+	<p><b>Static Analysis: </b>Static analysis is the foundation of structural analysis. It's employed when the structure is in equilibrium and subjected to a constant load or force.</p>
+
+	<ul>
+		<li>Force, displacement, velocity, acceleration are not functions of time. Steady-state conditions, with no consideration of time.</li>
+		<li>The assumption is that materials and loads do not change with time.</li>
+		<li>Suitable for structures subjected to slow, constant, or quasi-static loading conditions.</li>
+		<li>Governing equation is <code><b>[K]{x} = {F}</b></code>, where <code><b>[K]</b></code> is the stiffness matrix, <code><b>{x}</b></code> and <code><b>{F}</b></code> are the displacement and force vectors.</li>
+		<li>Less solution time</li>
+		<li><b>Output: </b>stress, displacement</li>
+		<li>Inertial loads (due to g) are not considered.</li>
+		<li>Only the stiffness matrix is solved.</li>
+		<li><b>Example: </b>A person sitting on a chair.</li>
+	</ul>
+	<br>
+	
+	<p><b>Dynamic Analysis: </b>It deals with the time-dependent behavior of structures. This analysis considers the effects of forces and displacements as they change over time.</p>
+
+	<ul>
+		<li>Force, displacement, velocity, acceleration are functions of time.</li>
+		<li><b>Governing equation: </b><code><b>[M]{ẍ} + [C]{ẋ} + [K]{x} = {F}</b></code>, where <code><b>[M]</b></code> is the mass matrix, <code><b>[C]</b></code> is the damping matrix, and <code><b>{ẍ}</b>, <b>{ẋ}</b></code> are acceleration and velocity vectors.</li>
+		<li><b>More solution time</b></li>
+		<li><b>Output: </b>stress, displacement, velocity, acceleration w.r.t. time/frequency</li>
+	</ul>
+	<br>
+
+	<p><b>Free Vibration:</b> Displacement, velocity, acceleration are functions of time but there’s no external force.<br>
+	<b>Example:</b> A mass is oscillating freely in a spring mass system.</p>
+
+	<p><b>Forced Vibration:</b> External force is also present</p>
+
+	<ul>
+		<li>Inertial loads are also taken into consideration.</li>
+		<li>Stiffness matrix is solved along with mass matrix (and damping matrix, if not zero).</li>
+		<li><b>Example:</b> Load applied on a spring.</li>
+	</ul>
+	
+  </main>
+
+  <div id="footer"></div>
+  
 </body>
 </html>
